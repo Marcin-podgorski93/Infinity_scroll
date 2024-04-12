@@ -5,6 +5,14 @@ const apiUrl = `https://api.unsplash.com/photos/random/?client_id=LC1Jz5zQmU9Vcl
 
 let photoArray = [];
 
+
+// Helper function to set Attributes on DOM Elements
+// function setAttributes(element, attributes) {
+//     for (const key in attributes ) {
+//        element.setAttributes(key, attributes[key])
+//         }
+//     }
+
 // Create Elements for Links $ Photos, Add to DOM 
 function showPictures() {
     // Run function for each object in photoArray
@@ -38,4 +46,11 @@ async function fetchImage() {
     }
 }
 
-fetchImage()
+fetchImage();
+
+// Check to see if scrolling near bottom of page, Load more Photos
+window.onscroll = async function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        await fetchImage();
+    }
+};
