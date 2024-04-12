@@ -46,11 +46,13 @@ async function fetchImage() {
     }
 }
 
-fetchImage();
-
 // Check to see if scrolling near bottom of page, Load more Photos
 window.onscroll = async function() {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         await fetchImage();
     }
 };
+
+
+fetchImage();
+
