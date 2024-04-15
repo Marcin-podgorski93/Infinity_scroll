@@ -1,4 +1,5 @@
 const container = document.getElementById('image-container');
+const loader = document.getElementById('loader');
 
 let photoArray = [];
 let ready = false;
