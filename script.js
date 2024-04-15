@@ -6,8 +6,8 @@ let ready = false;
 let loadedImages = 0;
 let totalImages = 0;
 
-const count = 10;
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=AdPm_uRRDdyvWo1saPRJHxalgYitsIg-hHjlZDsdRaY&count=${count}`;
+let count = 5;
+let apiUrl = `https://api.unsplash.com/photos/random/?client_id=AdPm_uRRDdyvWo1saPRJHxalgYitsIg-hHjlZDsdRaY&count=${count}`;
 
 // Check if all images were loaded 
 function imageLoaded() {
@@ -16,6 +16,8 @@ function imageLoaded() {
     if (loadedImages === totalImages) {
         ready = true;
         loader.hidden = true;
+        count = 30;
+        apiUrl = `https://api.unsplash.com/photos/random/?client_id=AdPm_uRRDdyvWo1saPRJHxalgYitsIg-hHjlZDsdRaY&count=${count}`;
         // console.log('ready=', ready)
     }
 }
@@ -70,6 +72,7 @@ async function fetchImage() {
 window.onscroll = async function() {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         // console.log('load more');
+        ready = false;
         await fetchImage();
     }
 };
