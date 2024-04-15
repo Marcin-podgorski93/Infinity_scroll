@@ -1,11 +1,24 @@
 const container = document.getElementById('image-container');
 
 let photoArray = [];
+let ready = false;
+let loadedImages = 0;
+let totalImages = 0;
 
-const count = 30;
-const apiUrl = `https://api.unsplash.com/photos/random/?client_id=LC1Jz5zQmU9Vcle2MJkb6BVzvZAkC1TiZeHRU5PBhR4&count=${count}`;
+const count = 10;
+const apiUrl = `https://api.unsplash.com/photos/random/?client_id=AdPm_uRRDdyvWo1saPRJHxalgYitsIg-hHjlZDsdRaY&count=${count}`;
 
 // Check if all images were loaded 
+function imageLoaded() {
+    loadedImages++;
+    console.log(loadedImages);
+    if (loadedImages === totalImages) {
+        ready = true;
+        loader.hidden = true;
+        console.log('ready=', ready)
+    }
+}
+
 
 // Helper function to set Attributes on DOM Elements
 // function setAttributes(element, attributes) {
@@ -16,6 +29,9 @@ const apiUrl = `https://api.unsplash.com/photos/random/?client_id=LC1Jz5zQmU9Vcl
 
 // Create Elements for Links $ Photos, Add to DOM 
 function showPictures() {
+    loadedImages = 0;
+    totalImages = photoArray.length;
+    console.log('total images', totalImages);
     // Run function for each object in photoArray
     photoArray.forEach(photo => {
         // Create <a> to link to Unsplash
@@ -27,6 +43,8 @@ function showPictures() {
         img.setAttribute('src', photo.urls.regular);
         img.setAttribute('alt', photo.alt_description);
         img.setAttribute('title', photo.alt_description);
+        // Event listener,check when each is finished loading
+        img.addEventListener('load', imageLoaded);
         // Put <img> inside <a>, then put both inside image-container Element
         // <img> to <a>
         item.appendChild(img);
